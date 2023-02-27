@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class spp extends Model {
     /**
@@ -11,15 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      spp.hasMany(models.siswa, { as: "siswa", foreignKey: "idSpp" });
     }
   }
-  spp.init({
-    idSpp: DataTypes.INTEGER,
-    tahun: DataTypes.INTEGER,
-    nominal: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'spp',
-  });
+  spp.init(
+    {
+      idSpp: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+      },
+      tahun: DataTypes.INTEGER,
+      nominal: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "spp",
+    }
+  );
   return spp;
 };

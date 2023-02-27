@@ -3,32 +3,49 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('siswas', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       nisn: {
-        type: Sequelize.CHAR
+        type: Sequelize.CHAR,
+        primaryKey: true,
+        // autoIncrement: true,
+        allowNull: false
       },
       nis: {
-        type: Sequelize.CHAR
+        type: Sequelize.CHAR,
+        allowNull: false
       },
       nama: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       idKelas: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        references: {
+          model: "kelas",
+          key: "idKelas",
+          as: "idKelas"
+        },
+        allowNull: false
       },
       alamat: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       noTelp: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       idSpp: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        references: {
+          model: "spps",
+          key: "idSpp",
+          as: "idSpp"
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

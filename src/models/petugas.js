@@ -11,14 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      petugas.hasMany(models.pembayaran, {as:"pembayaran", foreignKey:"idPetugas"})
     }
   }
   petugas.init({
-    idPetugas: DataTypes.INTEGER,
+    idPetugas: {
+     type: DataTypes.INTEGER,
+     primaryKey: true
+  },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     namaPetugas: DataTypes.STRING,
-    level: DataTypes.ENUM
+    level: DataTypes.ENUM('admin', 'petugas')
   }, {
     sequelize,
     modelName: 'petugas',
