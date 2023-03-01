@@ -11,7 +11,7 @@ async function loginPetugas(req, res) {
             username
         }
     })
-    
+    console.log(petugas);
     if (petugas === null) {
         return res.status(400).json({
             status: "Fail",
@@ -64,7 +64,7 @@ async function loginPetugas(req, res) {
   }
 }
 
-async function register(req, res) {
+async function registerPetugas(req, res) {
   try {
     const payload = req.body;
     const { username, namaPetugas, password, level,  } = payload;
@@ -75,7 +75,7 @@ async function register(req, res) {
       password: hashPassword,
       level
     });
-    res.json({
+    res.status(201).json({
       status: "Success",
       message: "Register berhasil",
     });
@@ -88,7 +88,26 @@ async function register(req, res) {
   }
 }
 
+async function authmePetugas(req, res) {
+  const username = req.username
+  try {
+    const petugas = await PetugasModel.findOne({
+      where:{
+        username: username
+      }
+    })
+    if (!petugas) {
+      return res.status(404).json({
+        status: "Fail",
+        messafe: "petugas doesn't exist"
+      })
+    }
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
     loginPetugas,
-    register
+    registerPetugas
 };
